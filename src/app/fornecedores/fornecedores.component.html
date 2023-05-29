@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-8 m-auto">
+      <form [formGroup]="formGroupSupplier">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Campo</th>
+                <th scope="col">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Nome</th>
+                <td>
+                    <input type="text" formControlName="name" class="form-control" placeholder="nome">
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Ativo</th>
+                <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="active" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                          ativo
+                        </label>
+                      </div>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Categoria</th>
+                <td>
+                    <select class="form-select" formControlName="category" id="select">
+                        <option value="Regional">Regional</option>
+                        <option value="Nacional">Nacional</option>
+                        <option value="Internacional">Internacional</option>
+                      </select>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Contato</th>
+                <td>
+                    <input type="text" formControlName="contact" class="form-control" placeholder="Contato">
+                </td>
+              </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" (click)="salvar()">Adicionar</button>
+      </form>
+    </div>
+  </div>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Situação</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Contato</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplier of suppliers;">
+          <th scope="row">{{supplier.id}}</th>
+          <td (click)="preencher(supplier)">{{supplier.name}}</td>
+          <td *ngIf="supplier.active else blocoFalso">Ativo</td>
+          <ng-template #blocoFalso>Inativo</ng-template>
+          <td>{{supplier.category}}</td>
+          <td>{{supplier.contact}}</td>
+          <td>
+            <button class="btn btn-secondary" (click)="editar(supplier)">Alterar</button>
+            <button class="btn btn-danger" (click)="excluir(supplier)">Remover</button>
+          </td>
+        </tr>
+      </tbody>
+  </table>
