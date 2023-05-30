@@ -11,6 +11,7 @@ import { Supplier } from '../supplier';
 export class FornecedoresComponent implements OnInit{
 
   formGroupSupplier : FormGroup;
+  edition : boolean = false;
   suppliers : Supplier[] = [];
   constructor (private clientService: FornecedoresService, formBuilder: FormBuilder){
     this.formGroupSupplier = formBuilder.group({
@@ -51,25 +52,32 @@ export class FornecedoresComponent implements OnInit{
     });
   }
 
-  editar(obj : Supplier)
+  editar()
   {
+    var obj : Supplier = this.formGroupSupplier.value;
     if(confirm("Alterar dados? Id: " + obj.id))
-      this.clientService.alterar(this.formGroupSupplier.value, obj.id).subscribe({
+      this.clientService.alterar(obj, obj.id).subscribe({
         next : () => {
           this.carregarLista();
-          this.formGroupSupplier.reset();
+          this.limparEdicao();
         }
       });
   }
 
+  limparEdicao()
+  {
+    this.edition = false;
+    this.formGroupSupplier.reset();
+  }
+
   preencher(obj : Supplier)
   {
-    this.formGroupSupplier.reset();
-    var obj2: Supplier = this.formGroupSupplier.value();
-    obj2.name = obj.name;
-    obj2.category = obj.category;
-    obj2.contact = obj.contact;
-    obj2.active = obj.active;
-    this.formGroupSupplier.setValue(obj2);
+    this.formGroupSupplier.setValue(obj);
+    this.edition = true;
+  }
+
+  bloquear()
+  {
+    alert("Finalize ou cancele edição pendente primeiro!");
   }
 }

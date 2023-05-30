@@ -44,7 +44,13 @@
               </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" (click)="salvar()">Adicionar</button>
+        <div *ngIf="edition else blocoCadastrar">
+          <button class="btn btn-primary m-3" (click)="editar()">Editar id {{formGroupSupplier.value.id}}</button>
+          <button class="btn btn-secondary" (click)="limparEdicao()">Cancelar</button>
+        </div>
+        <ng-template #blocoCadastrar>
+          <button class="btn btn-primary" (click)="salvar()">Adicionar</button>
+        </ng-template>
       </form>
     </div>
   </div>
@@ -62,14 +68,15 @@
       <tbody>
         <tr *ngFor="let supplier of suppliers;">
           <th scope="row">{{supplier.id}}</th>
-          <td (click)="preencher(supplier)">{{supplier.name}}</td>
+          <td>{{supplier.name}}</td>
           <td *ngIf="supplier.active else blocoFalso">Ativo</td>
           <ng-template #blocoFalso>Inativo</ng-template>
           <td>{{supplier.category}}</td>
           <td>{{supplier.contact}}</td>
           <td>
-            <button class="btn btn-secondary" (click)="editar(supplier)">Alterar</button>
-            <button class="btn btn-danger" (click)="excluir(supplier)">Remover</button>
+            <button class="btn btn-secondary m-3" (click)="preencher(supplier)">Alterar</button>
+            <button *ngIf="formGroupSupplier.value.id === supplier.id else blocoEdicao" class="btn btn-secondary" (click)="bloquear()">Remover</button>
+            <ng-template #blocoEdicao><button class="btn btn-danger" (click)="excluir(supplier)">Remover</button></ng-template>
           </td>
         </tr>
       </tbody>

@@ -4,22 +4,15 @@
       "id": 1,
       "name": "Hilário Transportes LTDA",
       "active": true,
-      "category": "regional",
+      "category": "Regional",
       "contact": "hilariotrans@facilmail.com"
     },
     {
       "id": 2,
       "name": "Rápido como uma lesma Entregas",
       "active": true,
-      "category": "nacional",
+      "category": "Nacional",
       "contact": "lesmaentregas@earth.com"
-    },
-    {
-      "id": 3,
-      "name": "a",
-      "category": "Regional",
-      "active": false,
-      "contact": "dssds"
     }
   ]
 }
